@@ -17,7 +17,7 @@ const item: Variants = {
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen w-full flex-col items-center justify-center py-10 px-4 sm:px-6">
+    <main className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden px-4 sm:px-6">
       {/* fundo ambiente — contido no html/body overflow-x:hidden */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_0%,#ffffff_0%,var(--color-paper)_55%,var(--color-mist)_100%)]" />
@@ -147,7 +147,7 @@ export default function Home() {
         </motion.div>
       </motion.div>
 
-      <p className="mt-8 text-center text-[11px] text-ink/30">
+      <p className="absolute bottom-5 left-1/2 -translate-x-1/2 text-center text-[11px] text-ink/30">
         © Programa Conecta AMVE • Em construção
       </p>
     </main>
