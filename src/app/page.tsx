@@ -3,32 +3,22 @@
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { Lock } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 
 const container: Variants = {
   hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.09,
-      delayChildren: 0.15,
-    },
-  },
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
 };
 
 const item: Variants = {
   hidden: { opacity: 0, y: 14 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-16 sm:py-24">
-      {/* ambiente — laço abstrato inspirado na curva do "n" do logotipo */}
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-16 sm:py-24">
+      {/* fundo ambiente */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_0%,#ffffff_0%,var(--color-paper)_55%,var(--color-mist)_100%)]" />
 
@@ -41,9 +31,9 @@ export default function Home() {
         >
           <defs>
             <linearGradient id="loopGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="var(--color-lime)" />
-              <stop offset="35%" stopColor="var(--color-turquoise)" />
-              <stop offset="65%" stopColor="var(--color-coral)" />
+              <stop offset="0%"   stopColor="var(--color-lime)" />
+              <stop offset="35%"  stopColor="var(--color-turquoise)" />
+              <stop offset="65%"  stopColor="var(--color-coral)" />
               <stop offset="100%" stopColor="var(--color-purple)" />
             </linearGradient>
           </defs>
@@ -67,12 +57,40 @@ export default function Home() {
         <div className="absolute left-[12%] top-[18%] h-24 w-24 rounded-full bg-coral/20 blur-[60px]" />
       </div>
 
+      {/* card Liquid Glass */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative w-full max-w-lg rounded-[2rem] border border-white/70 bg-white/55 px-8 py-12 text-center shadow-[0_30px_80px_-30px_rgba(102,0,144,0.25)] backdrop-blur-2xl sm:px-12 sm:py-14"
+        className="relative w-full max-w-xl px-8 py-12 text-center sm:px-12 sm:py-14"
+        style={{
+          borderRadius: "2rem",
+          background: "linear-gradient(145deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.38) 100%)",
+          backdropFilter: "blur(32px) saturate(1.6)",
+          WebkitBackdropFilter: "blur(32px) saturate(1.6)",
+          border: "1px solid rgba(255,255,255,0.85)",
+          boxShadow: [
+            "0 2px 0 0 rgba(255,255,255,0.9) inset",
+            "0 -1px 0 0 rgba(255,255,255,0.3) inset",
+            "1px 0 0 0 rgba(255,255,255,0.5) inset",
+            "-1px 0 0 0 rgba(255,255,255,0.5) inset",
+            "0 32px 80px -20px rgba(102,0,144,0.22)",
+            "0 8px 32px -8px rgba(70,201,204,0.15)",
+          ].join(", "),
+        }}
       >
+        {/* brilho interno topo — simula refração */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-[2rem]"
+          style={{ background: "linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.9) 50%, transparent 90%)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-4 top-0 h-8 rounded-t-[2rem] opacity-60"
+          style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.55) 0%, transparent 100%)" }}
+        />
+
         <motion.div variants={item} className="flex justify-center">
           <Image
             src="/logo-conecta-amve.webp"
@@ -86,7 +104,13 @@ export default function Home() {
 
         <motion.div
           variants={item}
-          className="mx-auto mt-8 inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white/70 px-4 py-1.5"
+          className="mx-auto mt-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+          style={{
+            background: "rgba(255,255,255,0.65)",
+            border: "1px solid rgba(255,255,255,0.9)",
+            backdropFilter: "blur(12px)",
+            boxShadow: "0 1px 0 0 rgba(255,255,255,0.8) inset, 0 2px 8px rgba(102,0,144,0.08)",
+          }}
         >
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple/60" />
@@ -114,14 +138,26 @@ export default function Home() {
         </motion.p>
 
         <motion.div variants={item} className="mt-9">
-          <Button variant="muted" size="lg" disabled className="cursor-not-allowed">
+          <Button
+            variant="muted"
+            size="lg"
+            disabled
+            className="cursor-not-allowed"
+            style={{
+              background: "rgba(255,255,255,0.5)",
+              border: "1px solid rgba(255,255,255,0.8)",
+              backdropFilter: "blur(8px)",
+              boxShadow: "0 1px 0 0 rgba(255,255,255,0.9) inset",
+            }}
+          >
             <Lock className="h-4 w-4" strokeWidth={2} />
             Volte em breve
           </Button>
         </motion.div>
       </motion.div>
 
-      <p className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center text-xs text-ink/35">
+      {/* rodapé no fluxo — não absoluto */}
+      <p className="mt-10 text-center text-xs text-ink/35">
         © Programa Conecta AMVE • Em construção
       </p>
     </main>
