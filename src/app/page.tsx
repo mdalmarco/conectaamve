@@ -17,13 +17,13 @@ const item: Variants = {
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-16 sm:py-24">
+    <main className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-hidden px-4 py-16 sm:px-6 sm:py-24">
       {/* fundo ambiente */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_0%,#ffffff_0%,var(--color-paper)_55%,var(--color-mist)_100%)]" />
 
         <motion.svg
-          className="absolute -right-[18%] -top-[12%] h-[62vh] w-[62vh] opacity-[0.55] blur-[6px] sm:h-[75vh] sm:w-[75vh]"
+          className="absolute -right-[12%] -top-[10%] h-[55vh] w-[55vh] opacity-[0.50] blur-[6px] sm:h-[68vh] sm:w-[68vh]"
           viewBox="0 0 400 400"
           animate={{ rotate: 360 }}
           transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
@@ -62,7 +62,7 @@ export default function Home() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative w-full max-w-xl px-8 py-12 text-center sm:px-12 sm:py-14"
+        className="relative w-full max-w-md px-7 py-11 text-center sm:max-w-lg sm:px-12 sm:py-14"
         style={{
           borderRadius: "2rem",
           background: "linear-gradient(145deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.38) 100%)",
