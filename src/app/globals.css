@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  /* extraídas diretamente do logotipo */
+  --color-purple: #660090;
+  --color-turquoise: #46c9cc;
+  --color-coral: #f87d73;
+  --color-lime: #a2c43a;
+
+  /* neutros sofisticados */
+  --color-ink: #1a1a1a;
+  --color-paper: #fcfbfa;
+  --color-mist: #f2f0ec;
+
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+}
+
+@theme inline {
+  --color-purple: var(--color-purple);
+  --color-turquoise: var(--color-turquoise);
+  --color-coral: var(--color-coral);
+  --color-lime: var(--color-lime);
+  --color-ink: var(--color-ink);
+  --color-paper: var(--color-paper);
+  --color-mist: var(--color-mist);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
