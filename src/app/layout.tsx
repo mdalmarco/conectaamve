@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Programa Conecta AMVE",
     description: "Portal oficial em desenvolvimento.",
-    images: ["/logo-conecta-amve.png"],
+    images: ["/logo-conecta-amve.webp"],
   },
 };
 

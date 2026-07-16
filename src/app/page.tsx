@@ -75,7 +75,7 @@ export default function Home() {
       >
         <motion.div variants={item} className="flex justify-center">
           <Image
-            src="/logo-conecta-amve.png"
+            src="/logo-conecta-amve.webp"
             alt="Conecta AMVE"
             width={280}
             height={148}
