@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Mapa de Atores do Ecossistema de Inovacao de Gaspar</title>
+  <title>Mapa de Atores do Ecossistema de Inovação de Gaspar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -184,10 +184,10 @@
 
     .toolbar {
       display: grid;
-      grid-template-columns: minmax(230px, 1.2fr) repeat(3, minmax(118px, .7fr));
+      grid-template-columns: minmax(200px, 1.4fr) repeat(3, minmax(110px, .65fr)) auto;
       gap: 10px;
       align-items: center;
-      padding: 12px;
+      padding: 12px 14px;
       border-radius: var(--radius-xl);
     }
 
@@ -236,11 +236,7 @@
     }
 
     .toolbar-actions {
-      grid-column: 1 / -1;
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
+      display: none;
     }
 
     .btn {
@@ -289,7 +285,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(6, minmax(120px, 1fr));
+      grid-template-columns: repeat(6, minmax(110px, 1fr));
       gap: 1px;
       overflow: hidden;
       border-radius: var(--radius-xl);
@@ -303,22 +299,39 @@
     }
 
     .stat-label {
-      margin: 0 0 10px;
+      margin: 0 0 6px;
       color: var(--brand-muted);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .06em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stat-label .stat-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
     .stat-value {
       margin: 0;
-      font-size: 28px;
+      font-size: 26px;
       line-height: 1;
       font-weight: 700;
       letter-spacing: -.03em;
       font-family: 'Space Grotesk', system-ui, sans-serif;
       color: var(--brand-primary);
+    }
+    .stat-card:first-child .stat-value {
+      font-size: 32px;
+      color: var(--brand-ink);
+    }
+    .stat-value.is-zero {
+      color: var(--brand-coral);
+      opacity: 0.75;
     }
 
     .map-card {
@@ -337,20 +350,72 @@
       gap: 12px;
       pointer-events: none;
     }
+    .map-actions {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      z-index: 5;
+      display: flex;
+      gap: 6px;
+    }
+    .map-actions .btn {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: 50%;
+      opacity: 0.7;
+      transition: opacity .2s;
+    }
+    .map-actions .btn:hover {
+      opacity: 1;
+    }
 
     .map-caption {
-      max-width: 430px;
-      padding: 12px 14px;
+      pointer-events: auto;
+    }
+    .legend-help-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
       border: var(--glass-border);
-      border-radius: 16px;
+      border-radius: 999px;
       background: var(--glass-bg);
       backdrop-filter: blur(20px) saturate(1.4);
       -webkit-backdrop-filter: blur(20px) saturate(1.4);
       color: var(--brand-muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--glass-shadow);
+      transition: background .2s;
+    }
+    .legend-help-btn:hover {
+      background: rgba(255,255,255,0.82);
+    }
+    .radar-popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      z-index: 20;
+      max-width: 300px;
+      padding: 12px 14px;
+      border: var(--glass-border);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(20px);
+      color: var(--brand-muted);
       font-size: 13px;
-      line-height: 1.45;
-      box-shadow: var(--glass-shadow), var(--shadow-sm);
+      line-height: 1.5;
+      box-shadow: var(--shadow-md);
       pointer-events: auto;
+      display: none;
+    }
+    .radar-popover.is-open {
+      display: block;
+    }
+    .legend-area {
+      padding: 10px 14px 4px;
     }
 
     .legend {
@@ -629,7 +694,17 @@
 
     .detail-list {
       display: grid;
-      gap: 10px;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .section-label {
+      margin: 14px 0 6px;
+      color: var(--brand-muted);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .10em;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
     }
 
     .detail {
@@ -679,6 +754,112 @@
       text-align: center;
       color: var(--brand-muted);
       padding: 24px;
+    }
+
+    /* Toggle de visualização (mobile) */
+    .view-toggle {
+      display: none;
+    }
+    @media (max-width: 760px) {
+      .view-toggle {
+        display: flex;
+        gap: 4px;
+        padding: 4px;
+        border: var(--glass-border);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(10px);
+        margin-bottom: 12px;
+      }
+      .view-toggle button {
+        flex: 1;
+        height: 34px;
+        border: none;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--brand-muted);
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: background .2s, color .2s;
+      }
+      .view-toggle button.is-active {
+        background: rgba(255,255,255,0.85);
+        color: var(--brand-primary);
+        box-shadow: 0 1px 4px rgba(102,0,144,.10);
+      }
+      .map-card { display: none; }
+      .map-card.is-visible { display: block; }
+      .actor-list { display: none; }
+      .actor-list.is-visible { display: grid; }
+    }
+    @media (min-width: 761px) {
+      .map-card { display: block !important; }
+      .actor-list { display: none !important; }
+    }
+
+    /* Lista de atores (mobile) */
+    .actor-list {
+      grid-gap: 8px;
+      padding: 2px;
+    }
+    .actor-list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.62);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .actor-list-item:hover, .actor-list-item:active {
+      background: rgba(255,255,255,0.85);
+    }
+    .actor-list-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(102,0,144,0.10);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--brand-primary);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .actor-list-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .actor-list-name {
+      margin: 0 0 2px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brand-ink);
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+    }
+    .actor-list-meta {
+      margin: 0;
+      font-size: 12px;
+      color: var(--brand-muted);
+    }
+    .actor-list-cat {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
     }
 
     .empty-card {
@@ -864,15 +1045,23 @@
       </div>
       <div class="sync-status" aria-live="polite">
         <span class="status-dot" aria-hidden="true"></span>
-        <span id="syncStatus">Base ficticia carregada</span>
+        <span id="syncStatus">Base fictícia carregada</span>
       </div>
     </header>
 
     <section class="main-stage" aria-label="Mapa de atores">
+      <div class="view-toggle" id="viewToggle">
+        <button type="button" class="is-active" data-view="radar" id="btnViewRadar">
+          <i data-lucide="radar"></i> Radar
+        </button>
+        <button type="button" data-view="list" id="btnViewList">
+          <i data-lucide="list"></i> Lista
+        </button>
+      </div>
       <form class="toolbar" id="toolbar">
         <label class="field" for="searchInput">
           <i data-lucide="search" aria-hidden="true"></i>
-          <input id="searchInput" type="search" placeholder="Buscar ator, municipio ou representante" autocomplete="off">
+          <input id="searchInput" type="search" placeholder="Buscar ator, município ou representante" autocomplete="off">
         </label>
 
         <label class="select-wrap" for="categoryFilter">
@@ -883,22 +1072,21 @@
 
         <label class="select-wrap" for="cityFilter">
           <i data-lucide="map-pin" aria-hidden="true"></i>
-          <select id="cityFilter" aria-label="Filtrar por municipio"></select>
+          <select id="cityFilter" aria-label="Filtrar por município"></select>
           <i data-lucide="chevron-down" aria-hidden="true"></i>
         </label>
 
         <label class="select-wrap" for="levelFilter">
           <i data-lucide="radar" aria-hidden="true"></i>
-          <select id="levelFilter" aria-label="Filtrar por nivel"></select>
+          <select id="levelFilter" aria-label="Filtrar por nível"></select>
           <i data-lucide="chevron-down" aria-hidden="true"></i>
         </label>
 
-        <div class="toolbar-actions">
-          <button class="btn btn-primary" type="button" id="refreshButton"><i data-lucide="refresh-cw"></i><span>Atualizar</span></button>
-          <button class="btn btn-icon" type="button" id="centerButton" title="Centralizar"><i data-lucide="crosshair"></i></button>
-          <button class="btn btn-icon" type="button" id="exportPngButton" title="Exportar PNG"><i data-lucide="image-down"></i></button>
-          <button class="btn btn-icon" type="button" id="exportSvgButton" title="Exportar SVG"><i data-lucide="file-down"></i></button>
-        </div>
+        <button class="btn btn-primary" type="button" id="refreshButton" style="white-space:nowrap;">
+          <i data-lucide="refresh-cw"></i><span>Atualizar</span>
+        </button>
+
+        <div class="toolbar-actions"></div>
       </form>
 
       <section class="stats-grid" id="statsGrid" aria-label="Indicadores"></section>
@@ -906,18 +1094,30 @@
       <article class="map-card">
         <div class="map-header">
           <div class="map-caption">
-            O centro representa o hub de inovacao. Cada anel indica intensidade de participacao e cada setor agrupa uma categoria do ecossistema.
+            <button class="legend-help-btn" id="radarHelpBtn" type="button" aria-label="Como ler o radar">
+              <i data-lucide="circle-help"></i>
+              <span>Como ler</span>
+            </button>
+            <div class="radar-popover" id="radarPopover">
+              O centro representa o hub de inovação de Gaspar. Cada anel indica intensidade de participação (quanto mais interno, mais ativo). Cada fatia do radar agrupa uma categoria do ecossistema.
+            </div>
           </div>
           <div class="legend" id="legend" aria-label="Legenda por categoria"></div>
         </div>
         <svg class="radar-svg" id="radarSvg" role="img" aria-label="Radar circular de atores do ecossistema"></svg>
+        <div class="map-actions">
+          <button class="btn" type="button" id="centerButton" title="Centralizar vista"><i data-lucide="crosshair"></i></button>
+          <button class="btn" type="button" id="exportPngButton" title="Exportar PNG"><i data-lucide="image-down"></i></button>
+          <button class="btn" type="button" id="exportSvgButton" title="Exportar SVG"><i data-lucide="file-down"></i></button>
+        </div>
       </article>
+      <div class="actor-list" id="actorList" aria-label="Lista de atores"></div>
     </section>
 
     <aside class="side-panel" aria-label="Detalhes do ator selecionado">
       <div class="panel-head">
         <p class="panel-title">Detalhes do ator</p>
-        <button class="btn btn-icon" type="button" id="closePanelButton" title="Limpar selecao"><i data-lucide="x"></i></button>
+        <button class="btn btn-icon" type="button" id="closePanelButton" title="Limpar seleção"><i data-lucide="x"></i></button>
       </div>
       <div class="panel-body" id="panelBody"></div>
     </aside>
@@ -933,7 +1133,7 @@
       csvUrl: "https://docs.google.com/spreadsheets/d/1hiZtdiMhQ4KAKKNgJ91IQtnfXGQChqhOyiasqyTgBkQ/edit?gid=0",
       logoBasePath: "logos/",
       logoDriveFolderUrl: "https://drive.google.com/drive/folders/1sLVq_MNEnQXhDZJiL1h-q7_T6ByHif6H?usp=sharing",
-      appName: "Mapa de Atores do Ecossistema de Inovacao de Gaspar",
+      appName: "Mapa de Atores do Ecossistema de Inovação de Gaspar",
       centerLabel: "Ecossistema de Gaspar",
       svgSize: 1120,
       center: 560,
@@ -945,7 +1145,7 @@
         "CTIs",
         "Sociedade Organizada",
         "Governo",
-        "Mecanismos de Inovacao"
+        "Mecanismos de Inovação"
       ],
       levelMap: [
         { label: "31+", ring: 0, radius: 104 },
@@ -959,7 +1159,7 @@
         "CTIs": "#46c9cc",
         "Sociedade Organizada": "#a2c43a",
         "Governo": "#f87d73",
-        "Mecanismos de Inovacao": "#9b34c8"
+        "Mecanismos de Inovação": "#9b34c8"
       }
     };
 
@@ -994,17 +1194,17 @@
       ["consorcio-municipal", "Consorcio Municipal Smart", "Governo", "Ate 5", "consorcio-smart.png", "Criciuma", "Janaina Weber", "(48) 3431-2222", "janaina@smartgov.example", "https://smartgov.example", 4, "2026-04-15", "Mapeado", "Baixa", "SIM", "Consorcio para compras compartilhadas de tecnologia."],
       ["observatorio-publico", "Observatorio Publico", "Governo", "11+", "observatorio-publico.png", "Blumenau", "Celso Ritter", "(47) 3326-2100", "celso@obspublico.example", "https://obspublico.example", 11, "2026-06-16", "Ativo", "Media", "SIM", "Unidade de inteligencia de dados publicos regionais."],
 
-      ["alpha-hub", "Alpha Hub", "Mecanismos de Inovacao", "31+", "alpha-hub.png", "Florianopolis", "Mirela Pacheco", "(48) 99918-2290", "mirela@alphahub.example", "https://alphahub.example", 44, "2026-07-13", "Ativo", "Alta", "SIM", "Hub de conexoes entre startups, investidores e corporates."],
-      ["venture-garden", "Venture Garden", "Mecanismos de Inovacao", "21+", "venture-garden.png", "Blumenau", "Hugo Ferraz", "(47) 98838-7300", "hugo@venturegarden.example", "https://venturegarden.example", 27, "2026-07-02", "Ativo", "Alta", "SIM", "Aceleradora com programas setoriais e comunidade de mentores."],
-      ["fab-lab-norte", "FabLab Norte", "Mecanismos de Inovacao", "11+", "fab-lab-norte.png", "Joinville", "Carol Antunes", "(47) 99707-8081", "carol@fablabnorte.example", "https://fablabnorte.example", 17, "2026-06-19", "Ativo", "Media", "SIM", "Espaco aberto de prototipacao, cursos e desafios industriais."],
-      ["capital-semente", "Capital Semente Sul", "Mecanismos de Inovacao", "5+", "capital-semente.png", "Florianopolis", "Sergio Motta", "(48) 98821-4550", "sergio@sementesul.example", "https://sementesul.example", 9, "2026-05-26", "Prospeccao", "Media", "SIM", "Rede anjo e veiculo inicial para startups B2B."],
-      ["cowork-serra", "Cowork Serra Criativa", "Mecanismos de Inovacao", "Ate 5", "cowork-serra.png", "Lages", "Isabela Torres", "(49) 99100-4460", "isa@serracriativa.example", "https://serracriativa.example", 5, "2026-04-30", "Mapeado", "Baixa", "SIM", "Espaco colaborativo com trilhas de empreendedorismo local."],
-      ["living-lab-oeste", "Living Lab Oeste", "Mecanismos de Inovacao", "11+", "living-lab-oeste.png", "Chapeco", "Eduardo Freire", "(49) 99878-3300", "eduardo@livingoeste.example", "https://livingoeste.example", 12, "2026-06-21", "Ativo", "Media", "SIM", "Ambiente de testes para agritech, logistica e cidades."],
-      ["launch-port", "Launch Port", "Mecanismos de Inovacao", "21+", "launch-port.png", "Itajai", "Marina Cordeiro", "(47) 99142-6021", "marina@launchport.example", "https://launchport.example", 21, "2026-06-27", "Ativo", "Alta", "SIM", "Programa de inovacao aberta para cadeia portuaria."],
-      ["nucleo-impacto", "Nucleo Impacto+", "Mecanismos de Inovacao", "5+", "nucleo-impacto.png", "Criciuma", "Vitor Paiva", "(48) 99911-3009", "vitor@impactomais.example", "https://impactomais.example", 8, "2026-05-18", "Ativo", "Media", "SIM", "Incubacao de negocios de impacto e transicao energetica."]
-    ].map(([id, nome, categoria, nivel, logo, municipio, representante, telefone, email, site, participacoes, ultima_interacao, status, prioridade, mostrar, observacoes]) => ({
-      id, nome, categoria, nivel, logo: "", municipio, representante, telefone, email, site,
-      participacoes, ultima_interacao, status, prioridade, mostrar, observacoes
+      ["alpha-hub", "Alpha Hub", "Mecanismos de Inovação", "31+", "alpha-hub.png", "Florianopolis", "Mirela Pacheco", "(48) 99918-2290", "mirela@alphahub.example", "https://alphahub.example", 44, "2026-07-13", "Ativo", "Alta", "SIM", "Hub de conexoes entre startups, investidores e corporates."],
+      ["venture-garden", "Venture Garden", "Mecanismos de Inovação", "21+", "venture-garden.png", "Blumenau", "Hugo Ferraz", "(47) 98838-7300", "hugo@venturegarden.example", "https://venturegarden.example", 27, "2026-07-02", "Ativo", "Alta", "SIM", "Aceleradora com programas setoriais e comunidade de mentores."],
+      ["fab-lab-norte", "FabLab Norte", "Mecanismos de Inovação", "11+", "fab-lab-norte.png", "Joinville", "Carol Antunes", "(47) 99707-8081", "carol@fablabnorte.example", "https://fablabnorte.example", 17, "2026-06-19", "Ativo", "Media", "SIM", "Espaco aberto de prototipacao, cursos e desafios industriais."],
+      ["capital-semente", "Capital Semente Sul", "Mecanismos de Inovação", "5+", "capital-semente.png", "Florianopolis", "Sergio Motta", "(48) 98821-4550", "sergio@sementesul.example", "https://sementesul.example", 9, "2026-05-26", "Prospeccao", "Media", "SIM", "Rede anjo e veiculo inicial para startups B2B."],
+      ["cowork-serra", "Cowork Serra Criativa", "Mecanismos de Inovação", "Ate 5", "cowork-serra.png", "Lages", "Isabela Torres", "(49) 99100-4460", "isa@serracriativa.example", "https://serracriativa.example", 5, "2026-04-30", "Mapeado", "Baixa", "SIM", "Espaco colaborativo com trilhas de empreendedorismo local."],
+      ["living-lab-oeste", "Living Lab Oeste", "Mecanismos de Inovação", "11+", "living-lab-oeste.png", "Chapeco", "Eduardo Freire", "(49) 99878-3300", "eduardo@livingoeste.example", "https://livingoeste.example", 12, "2026-06-21", "Ativo", "Media", "SIM", "Ambiente de testes para agritech, logistica e cidades."],
+      ["launch-port", "Launch Port", "Mecanismos de Inovação", "21+", "launch-port.png", "Itajai", "Marina Cordeiro", "(47) 99142-6021", "marina@launchport.example", "https://launchport.example", 21, "2026-06-27", "Ativo", "Alta", "SIM", "Programa de inovacao aberta para cadeia portuaria."],
+      ["nucleo-impacto", "Nucleo Impacto+", "Mecanismos de Inovação", "5+", "nucleo-impacto.png", "Criciuma", "Vitor Paiva", "(48) 99911-3009", "vitor@impactomais.example", "https://impactomais.example", 8, "2026-05-18", "Ativo", "Media", "SIM", "Incubacao de negocios de impacto e transicao energetica."]
+    ].map(([id, nome, categoria, nível, logo, município, representante, telefone, email, site, participações, ultima_interacao, status, prioridade, mostrar, observações]) => ({
+      id, nome, categoria, nível, logo: "", município, representante, telefone, email, site,
+      participações, ultima_interacao, status, prioridade, mostrar, observações
     }));
 
     class CsvService {
@@ -1014,7 +1214,7 @@
 
       async loadActors() {
         if (!this.config.csvUrl) {
-          return { actors: FAKE_ACTORS, source: "Base ficticia carregada" };
+          return { actors: FAKE_ACTORS, source: "Base fictícia carregada" };
         }
 
         if (this.isGoogleSheetsUrl(this.config.csvUrl)) {
@@ -1033,7 +1233,7 @@
         if (!actors.length) return;
         const validCount = actors.filter((actor) => this.config.categories.includes(actor.categoria)).length;
         if (validCount === 0) {
-          throw new Error("A planilha foi lida, mas a coluna categoria nao foi reconhecida (cabecalho pode ter vindo deslocado).");
+          throw new Error("A planilha foi lida, mas a coluna categoria não foi reconhecida (cabeçalho pode ter vindo deslocado).");
         }
       }
 
@@ -1080,8 +1280,8 @@
             return actor;
           }, {}))
           .map((actor) => this.normalizeActor(actor))
-          .filter((actor) => this.normalizeText(actor.mostrar) !== "nao")
-          .map((actor) => ({ ...actor, participacoes: Number(actor.participacoes || 0) }));
+          .filter((actor) => this.normalizeText(actor.mostrar) !== "não")
+          .map((actor) => ({ ...actor, participações: Number(actor.participações || 0) }));
       }
 
       isGoogleSheetsUrl(url) {
@@ -1128,7 +1328,7 @@
             if (actors.length) return actors;
             throw new Error("A planilha foi lida, mas nenhum ator valido foi encontrado.");
           } catch (csvError) {
-            throw new Error(`Nao foi possivel carregar a planilha. Verifique se o compartilhamento esta como "Qualquer pessoa com o link: Leitor". Detalhe: ${jsonpError.message}`);
+            throw new Error(`Não foi possível carregar a planilha. Verifique se o compartilhamento esta como "Qualquer pessoa com o link: Leitor". Detalhe: ${jsonpError.message}`);
           }
         }
       }
@@ -1142,7 +1342,7 @@
 
         const text = await response.text();
         if (/<!doctype html|<html/i.test(text)) {
-          throw new Error("o link retornou HTML, nao CSV");
+          throw new Error("o link retornou HTML, não CSV");
         }
 
         return text;
@@ -1167,7 +1367,7 @@
           window[callbackName] = (payload) => {
             cleanup();
             if (!payload || payload.status === "error") {
-              reject(new Error("Nao foi possivel ler a planilha publicada."));
+              reject(new Error("Não foi possível ler a planilha publicada."));
               return;
             }
 
@@ -1176,7 +1376,7 @@
 
           script.onerror = () => {
             cleanup();
-            reject(new Error("Nao foi possivel conectar ao Google Sheets."));
+            reject(new Error("Não foi possível conectar ao Google Sheets."));
           };
 
           script.src = `${source}&tqx=out:json;responseHandler:${callbackName}`;
@@ -1196,21 +1396,21 @@
           }, {}))
           .filter((actor) => Object.values(actor).some((value) => String(value).trim()))
           .map((actor) => this.normalizeActor(actor))
-          .filter((actor) => this.normalizeText(actor.mostrar) !== "nao")
-          .map((actor) => ({ ...actor, participacoes: Number(actor.participacoes || 0) }));
+          .filter((actor) => this.normalizeText(actor.mostrar) !== "não")
+          .map((actor) => ({ ...actor, participações: Number(actor.participações || 0) }));
       }
 
       normalizeActor(actor) {
         const normalized = { ...actor };
         const category = this.normalizeText(normalized.categoria).replace(/\s+/g, "_");
-        const level = this.normalizeText(normalized.nivel).replace(/\s+/g, "_");
+        const level = this.normalizeText(normalized.nível).replace(/\s+/g, "_");
 
         const categoryAliases = {
           empresas: "Empresas",
           ctis: "CTIs",
           sociedade_organizada: "Sociedade Organizada",
           governo: "Governo",
-          mecanismos_de_inovacao: "Mecanismos de Inovacao"
+          mecanismos_de_inovacao: "Mecanismos de Inovação"
         };
 
         const levelAliases = {
@@ -1222,7 +1422,7 @@
         };
 
         normalized.categoria = categoryAliases[category] || normalized.categoria;
-        normalized.nivel = levelAliases[level] || normalized.nivel;
+        normalized.nível = levelAliases[level] || normalized.nível;
         normalized.id = normalized.id || this.normalizeText(normalized.nome).replace(/\s+/g, "-");
         normalized.mostrar = normalized.mostrar || "SIM";
         return normalized;
@@ -1268,8 +1468,11 @@
           panel: document.getElementById("panelBody"),
           tooltip: document.getElementById("tooltip"),
           toast: document.getElementById("toast"),
-          sync: document.getElementById("syncStatus")
+          sync: document.getElementById("syncStatus"),
+          actorList: document.getElementById("actorList"),
+          mapCard: document.querySelector(".map-card"),
         };
+        this.currentView = "radar";
       }
 
       async init() {
@@ -1278,10 +1481,21 @@
         await this.refreshData();
         this.renderEmptyPanel();
         this.renderIcons();
+        // inicializar toggle
+        if (this.elements.mapCard) this.elements.mapCard.classList.add("is-visible");
       }
 
       bindEvents() {
         document.getElementById("toolbar").addEventListener("submit", (event) => event.preventDefault());
+        const helpBtn = document.getElementById("radarHelpBtn");
+        const popover = document.getElementById("radarPopover");
+        if (helpBtn && popover) {
+          helpBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            popover.classList.toggle("is-open");
+          });
+          document.addEventListener("click", () => popover.classList.remove("is-open"));
+        }
         this.elements.search.addEventListener("input", () => this.applyFilters({ centerMatch: true }));
         this.elements.category.addEventListener("change", () => this.applyFilters());
         this.elements.city.addEventListener("change", () => this.applyFilters());
@@ -1291,6 +1505,14 @@
         document.getElementById("exportSvgButton").addEventListener("click", () => this.exportSvg());
         document.getElementById("exportPngButton").addEventListener("click", () => this.exportPng());
         document.getElementById("closePanelButton").addEventListener("click", () => this.clearSelection());
+
+        // Toggle Lista/Radar (mobile)
+        const btnRadar = document.getElementById("btnViewRadar");
+        const btnList = document.getElementById("btnViewList");
+        if (btnRadar && btnList) {
+          btnRadar.addEventListener("click", () => this.switchView("radar"));
+          btnList.addEventListener("click", () => this.switchView("list"));
+        }
 
         this.elements.svg.addEventListener("wheel", (event) => this.handleWheel(event), { passive: false });
         this.elements.svg.addEventListener("pointerdown", (event) => this.startPan(event));
@@ -1302,14 +1524,14 @@
         this.setSyncStatus("Atualizando dados...");
         try {
           const payload = await this.csvService.loadActors();
-          this.actors = payload.actors.filter((actor) => this.normalize(actor.mostrar) !== "nao");
+          this.actors = payload.actors.filter((actor) => this.normalize(actor.mostrar) !== "não");
           this.setSyncStatus(`${payload.source} - ${this.formatDateTime(new Date())}`);
           this.populateDynamicFilters();
           this.applyFilters();
           this.showToast("Dados atualizados com sucesso.");
         } catch (error) {
           this.actors = FAKE_ACTORS;
-          this.setSyncStatus(`Falha na planilha: ${error.message}. Base ficticia em uso - ${this.formatDateTime(new Date())}`);
+          this.setSyncStatus(`Falha na planilha: ${error.message}. Base fictícia em uso - ${this.formatDateTime(new Date())}`);
           this.populateDynamicFilters();
           this.applyFilters();
           this.showToast(error.message);
@@ -1318,12 +1540,12 @@
 
       populateStaticFilters() {
         this.fillSelect(this.elements.category, ["Categoria", ...CONFIG.categories]);
-        this.fillSelect(this.elements.level, ["Nivel", ...CONFIG.levelMap.map((level) => level.label)]);
+        this.fillSelect(this.elements.level, ["Nível", ...CONFIG.levelMap.map((level) => level.label)]);
       }
 
       populateDynamicFilters() {
-        const cities = [...new Set(this.actors.map((actor) => actor.municipio).filter(Boolean))].sort((a, b) => a.localeCompare(b));
-        this.fillSelect(this.elements.city, ["Municipio", ...cities]);
+        const cities = [...new Set(this.actors.map((actor) => actor.município).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+        this.fillSelect(this.elements.city, ["Município", ...cities]);
       }
 
       fillSelect(select, values) {
@@ -1341,11 +1563,11 @@
         const level = this.elements.level.value;
 
         this.filteredActors = this.actors.filter((actor) => {
-          const haystack = this.normalize(`${actor.nome} ${actor.municipio} ${actor.representante} ${actor.categoria}`);
+          const haystack = this.normalize(`${actor.nome} ${actor.município} ${actor.representante} ${actor.categoria}`);
           return (!query || haystack.includes(query)) &&
             (!category || actor.categoria === category) &&
-            (!city || actor.municipio === city) &&
-            (!level || actor.nivel === level);
+            (!city || actor.município === city) &&
+            (!level || actor.nível === level);
         });
 
         this.calculatePositions();
@@ -1367,7 +1589,7 @@
 
         this.filteredActors.forEach((actor) => {
           const categoryIndex = Math.max(0, CONFIG.categories.indexOf(actor.categoria));
-          const level = CONFIG.levelMap.find((item) => item.label === actor.nivel) || CONFIG.levelMap.at(-1);
+          const level = CONFIG.levelMap.find((item) => item.label === actor.nível) || CONFIG.levelMap.at(-1);
           const key = `${categoryIndex}-${level.ring}`;
           if (!groups.has(key)) groups.set(key, []);
           groups.get(key).push({ actor, categoryIndex, level });
@@ -1421,15 +1643,22 @@
       renderStats() {
         const counts = CONFIG.categories.map((category) => ({
           label: category,
-          value: this.filteredActors.filter((actor) => actor.categoria === category).length
+          value: this.filteredActors.filter((actor) => actor.categoria === category).length,
+          color: CONFIG.colors[category] || "var(--brand-primary)"
         }));
 
-        const stats = [{ label: "Total de atores", value: this.filteredActors.length }, ...counts];
+        const total = { label: "Total de atores", value: this.filteredActors.length, color: null };
+        const stats = [total, ...counts];
 
         this.elements.stats.innerHTML = stats.map((stat) => `
           <div class="stat-card">
-            <p class="stat-label">${this.escape(stat.label)}</p>
-            <p class="stat-value">${stat.value}</p>
+            <p class="stat-label">
+              ${stat.color ? `<span class="stat-dot" style="background:${stat.color}"></span>` : ""}
+              ${this.escape(stat.label)}
+            </p>
+            <p class="stat-value${stat.value === 0 ? " is-zero" : ""}">
+              ${stat.value}
+            </p>
           </div>
         `).join("");
       }
@@ -1451,7 +1680,7 @@
             <linearGradient id="centerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="${CONFIG.colors.Empresas}"></stop>
               <stop offset="50%" stop-color="${CONFIG.colors.CTIs}"></stop>
-              <stop offset="100%" stop-color="${CONFIG.colors["Mecanismos de Inovacao"]}"></stop>
+              <stop offset="100%" stop-color="${CONFIG.colors["Mecanismos de Inovação"]}"></stop>
             </linearGradient>
           </defs>
           <g id="viewportGroup" transform="${this.viewportTransform()}">
@@ -1547,7 +1776,7 @@
         const query = this.normalize(this.elements.search.value);
         this.elements.svg.querySelectorAll(".actor-node").forEach((node) => {
           const actor = this.findActor(node.dataset.id);
-          const matchesQuery = !query || this.normalize(`${actor.nome} ${actor.municipio} ${actor.representante}`).includes(query);
+          const matchesQuery = !query || this.normalize(`${actor.nome} ${actor.município} ${actor.representante}`).includes(query);
           node.classList.toggle("is-selected", actor.id === this.selectedId);
           node.classList.toggle("is-highlight", matchesQuery && Boolean(query));
           node.classList.toggle("is-muted", Boolean(query) && !matchesQuery);
@@ -1588,17 +1817,34 @@
       renderPanel(actor) {
         const logoCandidates = this.resolveLogoCandidates(actor.logo);
         const logoPath = logoCandidates[0] || "";
-        const details = [
-          ["building-2", "Municipio", actor.municipio],
+
+        const contactDetails = [
+          ["building-2", "Município", actor.municipio],
           ["user-round", "Representante", actor.representante],
           ["phone", "Telefone", actor.telefone],
           ["mail", "E-mail", actor.email ? `<a href="mailto:${this.escape(actor.email)}">${this.escape(actor.email)}</a>` : ""],
           ["globe", "Site", actor.site ? `<a href="${this.escape(actor.site)}" target="_blank" rel="noreferrer">${this.escape(actor.site)}</a>` : ""],
-          ["activity", "Participacoes", actor.participacoes],
-          ["calendar-days", "Ultima interacao", this.formatDate(actor.ultima_interacao)],
-          ["badge-check", "Status", actor.status],
-          ["message-square-text", "Observacoes", actor.observacoes]
         ];
+
+        const activityDetails = [
+          ["activity", "Participações", actor.participacoes],
+          ["calendar-days", "Última interação", this.formatDate(actor.ultima_interacao)],
+          ["badge-check", "Prioridade", actor.prioridade],
+        ];
+
+        const renderDetailGroup = (items) => items
+          .filter((d) => d[2])
+          .map(([icon, label, value]) => `
+            <div class="detail">
+              <i data-lucide="${icon}"></i>
+              <div>
+                <p class="detail-label">${label}</p>
+                <p class="detail-value">${value}</p>
+              </div>
+            </div>
+          `).join("");
+
+        const statusColor = actor.status === "Ativo" ? "#16a34a" : actor.status === "Prospeccao" ? "#d97706" : "var(--brand-muted)";
 
         this.elements.panel.innerHTML = `
           <div class="actor-profile">
@@ -1612,19 +1858,27 @@
             </div>
             <div class="pill-row">
               <span class="pill"><i data-lucide="radar"></i>${this.escape(actor.nivel)}</span>
-              <span class="pill"><i data-lucide="flag"></i>${this.escape(actor.prioridade || "Sem prioridade")}</span>
+              <span class="pill" style="color:${statusColor}">
+                <i data-lucide="circle-check-big"></i>${this.escape(actor.status || "—")}
+              </span>
             </div>
-            <div class="detail-list">
-              ${details.filter((detail) => detail[2]).map(([icon, label, value]) => `
+            ${contactDetails.some(d => d[2]) ? `
+              <p class="section-label">Contato</p>
+              <div class="detail-list">${renderDetailGroup(contactDetails)}</div>
+            ` : ""}
+            ${activityDetails.some(d => d[2]) ? `
+              <p class="section-label">Atividade</p>
+              <div class="detail-list">${renderDetailGroup(activityDetails)}</div>
+            ` : ""}
+            ${actor.observacoes ? `
+              <p class="section-label">Observações</p>
+              <div class="detail-list">
                 <div class="detail">
-                  <i data-lucide="${icon}"></i>
-                  <div>
-                    <p class="detail-label">${label}</p>
-                    <p class="detail-value">${value}</p>
-                  </div>
+                  <i data-lucide="message-square-text"></i>
+                  <div><p class="detail-value">${this.escape(actor.observacoes)}</p></div>
                 </div>
-              `).join("")}
-            </div>
+              </div>
+            ` : ""}
           </div>
         `;
 
@@ -1650,13 +1904,13 @@
         this.renderIcons();
       }
 
-      renderEmptyPanel() {
+            renderEmptyPanel() {
         this.elements.panel.innerHTML = `
           <div class="empty-state">
             <div class="empty-card">
               <div class="empty-icon"><i data-lucide="mouse-pointer-click"></i></div>
               <strong>Selecione um ator</strong>
-              <span>Clique em uma logo no radar para ver contatos, status, participacoes e observacoes.</span>
+              <span>Clique em uma logo no radar para ver contatos, status, participações e observações.</span>
             </div>
           </div>
         `;
@@ -1666,10 +1920,18 @@
       showTooltip(event, id) {
         const actor = this.findActor(id);
         if (!actor) return;
+        const color = CONFIG.colors[actor.categoria] || "var(--brand-primary)";
+        const statusColor = actor.status === "Ativo" ? "#16a34a" : "var(--brand-muted)";
         this.elements.tooltip.innerHTML = `
-          <strong>${this.escape(actor.nome)}</strong>
-          <span>${this.escape(actor.categoria)}</span>
-          <span>${this.escape(actor.nivel)} - ${this.escape(actor.municipio)}</span>
+          <strong style="font-size:14px;display:block;margin-bottom:5px">${this.escape(actor.nome)}</strong>
+          <span style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+            <span style="width:7px;height:7px;border-radius:50%;background:${color};flex-shrink:0;display:inline-block"></span>
+            ${this.escape(actor.categoria)}
+          </span>
+          <span style="display:flex;align-items:center;gap:10px;color:var(--brand-muted);font-size:12px">
+            <span>${this.escape(String(actor.participacoes))} participações</span>
+            <span style="color:${statusColor}">${this.escape(actor.status || "")}</span>
+          </span>
         `;
         this.elements.tooltip.classList.add("is-visible");
         this.moveTooltip(event);
@@ -1768,7 +2030,7 @@
           URL.revokeObjectURL(url);
           canvas.toBlob((blob) => this.downloadBlob(blob, "mapa-atores-ecossistema.png"), "image/png", .95);
         };
-        image.onerror = () => this.showToast("Nao foi possivel exportar PNG neste navegador.");
+        image.onerror = () => this.showToast("Não foi possível exportar PNG neste navegador.");
         image.src = url;
       }
 
@@ -1782,6 +2044,58 @@
         link.click();
         link.remove();
         URL.revokeObjectURL(url);
+      }
+
+      switchView(view) {
+        this.currentView = view;
+        const btnRadar = document.getElementById("btnViewRadar");
+        const btnList = document.getElementById("btnViewList");
+        if (btnRadar) btnRadar.classList.toggle("is-active", view === "radar");
+        if (btnList) btnList.classList.toggle("is-active", view === "list");
+        if (this.elements.mapCard) this.elements.mapCard.classList.toggle("is-visible", view === "radar");
+        if (this.elements.actorList) this.elements.actorList.classList.toggle("is-visible", view === "list");
+        if (view === "list") this.renderActorList();
+      }
+
+      renderActorList() {
+        if (!this.elements.actorList) return;
+        if (!this.filteredActors.length) {
+          this.elements.actorList.innerHTML = `<p style="padding:24px;text-align:center;color:var(--brand-muted)">Nenhum ator encontrado.</p>`;
+          return;
+        }
+        this.elements.actorList.innerHTML = this.filteredActors.map((actor) => {
+          const candidates = this.resolveLogoCandidates(actor.logo);
+          const img = candidates[0] ? `<img src="${this.escape(candidates[0])}" alt="" style="display:none">` : "";
+          const color = CONFIG.colors[actor.categoria] || "var(--brand-primary)";
+          return `
+            <div class="actor-list-item" data-id="${this.escape(actor.id)}" role="button" tabindex="0">
+              <div class="actor-list-avatar">
+                ${img}
+                <span>${this.initials(actor.nome)}</span>
+              </div>
+              <div style="min-width:0;flex:1">
+                <p class="actor-list-name">${this.escape(actor.nome)}</p>
+                <p class="actor-list-meta">${this.escape(actor.categoria)} · ${this.escape(actor.nivel)}</p>
+              </div>
+              <span class="actor-list-cat" style="background:${color}"></span>
+            </div>
+          `;
+        }).join("");
+        // eventos de clique na lista
+        this.elements.actorList.querySelectorAll(".actor-list-item").forEach((item) => {
+          item.addEventListener("click", () => {
+            this.selectActor(item.dataset.id);
+            // em mobile rolar até o painel
+            document.querySelector(".side-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+          // carregar logo
+          const img = item.querySelector("img");
+          if (img) {
+            img.addEventListener("load", () => { img.style.display = "block"; item.querySelector("span")?.remove(); });
+            img.addEventListener("error", () => img.remove());
+          }
+        });
+        this.renderIcons();
       }
 
       findActor(id) {
