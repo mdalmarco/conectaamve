@@ -1281,7 +1281,11 @@
           }, {}))
           .map((actor) => this.normalizeActor(actor))
           .filter((actor) => this.normalizeText(actor.mostrar) !== "não")
-          .map((actor) => ({ ...actor, participações: Number(actor.participações || 0) }));
+          .map((actor) => ({ 
+              ...actor, 
+              participacoes: Number(actor.participacoes || actor.participações || actor["participacoes"] || 0),
+              participações: Number(actor.participacoes || actor.participações || actor["participacoes"] || 0)
+            }));
       }
 
       isGoogleSheetsUrl(url) {
@@ -1397,13 +1401,17 @@
           .filter((actor) => Object.values(actor).some((value) => String(value).trim()))
           .map((actor) => this.normalizeActor(actor))
           .filter((actor) => this.normalizeText(actor.mostrar) !== "não")
-          .map((actor) => ({ ...actor, participações: Number(actor.participações || 0) }));
+          .map((actor) => ({ 
+              ...actor, 
+              participacoes: Number(actor.participacoes || actor.participações || actor["participacoes"] || 0),
+              participações: Number(actor.participacoes || actor.participações || actor["participacoes"] || 0)
+            }));
       }
 
       normalizeActor(actor) {
         const normalized = { ...actor };
-        const category = this.normalizeText(normalized.categoria).replace(/\s+/g, "_");
-        const level = this.normalizeText(normalized.nível).replace(/\s+/g, "_");
+        const category = this.normalizeText(normalized.categoria || normalized["categoria"]).replace(/\s+/g, "_");
+        const level = this.normalizeText(normalized.nivel || normalized.nível || normalized["nivel"]).replace(/\s+/g, "_");
 
         const categoryAliases = {
           empresas: "Empresas",
@@ -1418,11 +1426,14 @@
           "21+": "21+",
           "11+": "11+",
           "5+": "5+",
-          ate_5: "Ate 5"
+          ate_5: "Ate 5",
+          "ate 5": "Ate 5",
+          "ate5": "Ate 5"
         };
 
         normalized.categoria = categoryAliases[category] || normalized.categoria;
-        normalized.nível = levelAliases[level] || normalized.nível;
+        normalized.nivel = levelAliases[level] || normalized.nivel || normalized.nível;
+        normalized.nível = normalized.nivel;
         normalized.id = normalized.id || this.normalizeText(normalized.nome).replace(/\s+/g, "-");
         normalized.mostrar = normalized.mostrar || "SIM";
         return normalized;
@@ -1567,7 +1578,7 @@
           return (!query || haystack.includes(query)) &&
             (!category || actor.categoria === category) &&
             (!city || actor.município === city) &&
-            (!level || actor.nível === level);
+            (!level || actor.nível === level || actor.nivel === level);
         });
 
         this.calculatePositions();
@@ -1589,7 +1600,7 @@
 
         this.filteredActors.forEach((actor) => {
           const categoryIndex = Math.max(0, CONFIG.categories.indexOf(actor.categoria));
-          const level = CONFIG.levelMap.find((item) => item.label === actor.nível) || CONFIG.levelMap.at(-1);
+          const level = CONFIG.levelMap.find((item) => item.label === (actor.nível || actor.nivel)) || CONFIG.levelMap.at(-1);
           const key = `${categoryIndex}-${level.ring}`;
           if (!groups.has(key)) groups.set(key, []);
           groups.get(key).push({ actor, categoryIndex, level });
