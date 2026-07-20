@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Mapa de Atores do Ecossistema de Inovação de Gaspar</title>
+  <title>Mapa de Atores do Ecossistema de Inovação de Indaial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -1040,7 +1040,7 @@
         <div class="brand-mark" aria-hidden="true"><i data-lucide="network"></i></div>
         <div>
           <p class="eyebrow">Mapa estratégico</p>
-          <h1>Ecossistema de Gaspar</h1>
+          <h1>Ecossistema de Indaial</h1>
         </div>
       </div>
       <div class="sync-status" aria-live="polite">
@@ -1099,7 +1099,7 @@
               <span>Como ler</span>
             </button>
             <div class="radar-popover" id="radarPopover">
-              O centro representa o hub de inovação de Gaspar. Cada anel indica intensidade de participação (quanto mais interno, mais ativo). Cada fatia do radar agrupa uma categoria do ecossistema.
+              O centro representa o hub de inovação de Indaial. Cada anel indica intensidade de participação (quanto mais interno, mais ativo). Cada fatia do radar agrupa uma categoria do ecossistema.
             </div>
           </div>
           <div class="legend" id="legend" aria-label="Legenda por categoria"></div>
@@ -1130,11 +1130,11 @@
     "use strict";
 
     const CONFIG = {
-      csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-m9rXtjhYpc7-3umHDvS8fh1noN6KfjqBhx39iAH5rfvYcXiVwivFN5AXAoSy_8OZf3pxL73OdDgt/pub?gid=0&single=true&output=csv",
+      csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-YObvfDooewgqkwAw13Dp27BYmXEnMhqIhu526f_iQWsKEumVYL8LvvQzlO0SXmvIexuKndz1Ge57/pub?gid=0&single=true&output=csv",
       logoBasePath: "logos/",
       logoDriveFolderUrl: "https://drive.google.com/drive/folders/1sLVq_MNEnQXhDZJiL1h-q7_T6ByHif6H?usp=sharing",
-      appName: "Mapa de Atores do Ecossistema de Inovação de Gaspar",
-      centerLabel: "Ecossistema de Gaspar",
+      appName: "Mapa de Atores do Ecossistema de Inovação de Indaial",
+      centerLabel: "Ecossistema de Indaial",
       svgSize: 1120,
       center: 560,
       ringGap: 78,
@@ -1355,7 +1355,7 @@
       loadGoogleSheetJsonp(info) {
         return new Promise((resolve, reject) => {
           const source = `https://docs.google.com/spreadsheets/d/${info.id}/gviz/tq?gid=${encodeURIComponent(info.gid)}&headers=1`;
-          const callbackName = `__gasparSheet_${Date.now()}_${Math.round(Math.random() * 100000)}`;
+          const callbackName = `__indaialSheet_${Date.now()}_${Math.round(Math.random() * 100000)}`;
           const script = document.createElement("script");
           const timeout = window.setTimeout(() => {
             cleanup();
